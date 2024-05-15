@@ -1,10 +1,11 @@
 import asyncio
 
+import bcrypt
+
 from app.db_management.connect_db import db
 from app.models.User import User
 
 users = db['users']
-
 
 async def get_all_users():
     return [User(**user) for user in users.find()]
