@@ -1,5 +1,6 @@
 import asyncio
 import bcrypt
+from pydantic import ValidationError
 
 from app.db_management.user_collection import *
 from app.models.User import User
@@ -8,19 +9,26 @@ salt = bcrypt.gensalt(rounds=20)
 
 
 async def get_by_email(email: str):
-    user = [user for user in await get_all_users() if user.email == email]
+    user:User = None
+    try:
+        user = [user for user in await get_all_users() if user.email == email]
+    except ValidationError as error:
+        print(error)
     if not user:
-        return False
+        return None
     return user[0]
 
 
 async def inset_user(name: str, password: str, email: str):
-    newUser = User(name=name, password=hashPassword(password), email=email)
-    await save_user_db(newUser)
+    try:
+        newUser = User(name=name, password=hashPassword(password), email=email)
+        await save_user_db(newUser)
+    except ValidationError as error:
+        print(error)
 
 
 async def delete_user(email: str):
-    await delete_user_db({'email': email})
+    await delete_user_db(email)
 
 
 async def update_user(email: str, user: User):
@@ -39,3 +47,6 @@ async def signIn(email: str, password: str):
 
 def hashPassword(password: str):
     return bcrypt.hashpw(password.encode('utf-8'), salt)
+
+
+print(asyncio.run(inset_user("ruvi" , "121212" ,"12@gmail.com")))

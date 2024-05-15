@@ -14,8 +14,8 @@ async def save_user_db(user: User):
     users.insert_one(dict(user))
 
 
-async def delete_user_db(email):
-    users.delete_one(email)
+async def delete_user_db(email:str):
+    users.delete_one({'email':email})
 
 
 async def update_user_db(email:str , user:User):
