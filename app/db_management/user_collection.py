@@ -16,3 +16,6 @@ async def save_user_db(user: User):
 async def delete_user_db(email):
     users.delete_one(email)
 
+
+async def update_user_db(email:str , user:User):
+    users.update_one({'email':email}, {'$set':dict(user)})
