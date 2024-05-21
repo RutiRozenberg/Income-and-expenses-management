@@ -1,4 +1,3 @@
-import asyncio
 import bcrypt
 from pydantic import ValidationError
 
@@ -36,7 +35,8 @@ async def signIn_service(email: str, password: str):
             return user
     return None
 
-async def signUp_service(newUser :User):
+
+async def signUp_service(newUser: User):
     try:
         newUser.password = hashPassword(newUser.password)
         await save_user_db(newUser)
@@ -47,5 +47,3 @@ async def signUp_service(newUser :User):
 
 def hashPassword(password: str):
     return bcrypt.hashpw(password.encode('utf-8'), salt)
-
-
