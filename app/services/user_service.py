@@ -9,22 +9,14 @@ salt = bcrypt.gensalt(rounds=20)
 
 
 async def get_by_email(email: str):
-    user:User = None
     try:
         user = [user for user in await get_all_users() if user.email == email]
     except ValidationError as error:
+        user = None
         print(error)
     if not user:
         return None
     return user[0]
-
-
-async def inset_user(name: str, password: str, email: str):
-    try:
-        newUser = User(name=name, password=hashPassword(password), email=email)
-        await save_user_db(newUser)
-    except ValidationError as error:
-        print(error)
 
 
 async def delete_user(email: str):
@@ -35,7 +27,7 @@ async def update_user(email: str, user: User):
     await update_user_db(email, user)
 
 
-async def signIn(email: str, password: str):
+async def signIn_service(email: str, password: str):
     user = await get_by_email(email)
     if user:
         bytes_password = password.encode('utf-8')
@@ -44,9 +36,16 @@ async def signIn(email: str, password: str):
             return user
     return None
 
+async def signUp_service(newUser :User):
+    try:
+        newUser.password = hashPassword(newUser.password)
+        await save_user_db(newUser)
+        return True
+    except ValidationError as error:
+        return False
+
 
 def hashPassword(password: str):
     return bcrypt.hashpw(password.encode('utf-8'), salt)
 
 
-print(asyncio.run(inset_user("ruvi" , "121212" ,"12@gmail.com")))
