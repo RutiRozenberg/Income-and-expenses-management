@@ -3,7 +3,7 @@ from pydantic import BaseModel, field_validator
 from app.validators.string_validator import validate_date_format
 
 
-class Expenses(BaseModel):
+class Expense(BaseModel):
     id: int
     user_email: str
     amount: int
