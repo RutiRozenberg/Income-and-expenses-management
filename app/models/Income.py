@@ -13,4 +13,4 @@ class Income(BaseModel):
 
     @field_validator('date')
     def date_format(cls, date):
-        validate_date_format(cls, date)
+        return validate_date_format(cls, date)
