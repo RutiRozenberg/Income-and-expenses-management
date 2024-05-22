@@ -21,6 +21,7 @@ async def get_by_email(email: str):
 
 async def delete_user(email: str):
     await delete_user_db(email)
+    return True
 
 
 async def update_user_service(email: str, user_from_body: User):
@@ -29,7 +30,8 @@ async def update_user_service(email: str, user_from_body: User):
     user: User = await get_by_email(email)
     if user_from_body.name is not None:
         user.name = user_from_body.name
-    return await update_user_db(email, user)
+    await update_user_db(email, user)
+    return True
 
 
 async def signIn_service(email: str, password: str):

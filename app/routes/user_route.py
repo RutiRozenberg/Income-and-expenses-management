@@ -26,8 +26,3 @@ async def update_user(email: str, user_from_body: User):
     if await update_user_service(email, user_from_body):
         return True
     raise HTTPException(status_code=404, detail="oops...")
-
-
-
-
-
