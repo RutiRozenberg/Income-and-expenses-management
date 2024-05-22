@@ -27,10 +27,8 @@ async def update_user_service(email: str, user_from_body: User):
     if user_from_body.email != email:
         raise HTTPException(status_code=400, detail="oops... try another email")
     user: User = await get_by_email(email)
-    if user.name != user_from_body.name:
+    if user_from_body.name is not None:
         user.name = user_from_body.name
-    if user.password != hashPassword(user_from_body.password):
-        user.password = user_from_body.password
     return await update_user_db(email, user)
 
 
