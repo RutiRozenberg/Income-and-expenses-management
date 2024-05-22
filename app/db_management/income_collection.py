@@ -1,4 +1,3 @@
-import asyncio
 
 from app.db_management.connect_db import db
 from app.models.Income import Income
@@ -10,18 +9,11 @@ async def get_all_income():
     return [Income(**income) for income in incomes.find()]
 
 
-# async def get_next_id():
-#     result = await get_all_income().sort([('id', -1)]).limit(1)
-#     if result:
-#         return result[0]['id']
-#     else:
-#         return None
 async def get_next_id():
     result = await get_all_income()
     if result:
-        result = result.sort([('id', -1)]).limit(1).to_list(1)
-        if result:
-            return result[0]['id']
+        max_id = max(result, key=lambda x: x.id, default=None)
+        return max_id.id
     return None
 
 
