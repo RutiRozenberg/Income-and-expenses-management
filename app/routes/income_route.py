@@ -7,7 +7,7 @@ from app.services.income_service import get_one_income_service, get_all_Income_s
 income_router = APIRouter()
 
 
-@income_router.get("/getOne/{income_id}")
+@income_router.get("/{income_id}")
 async def get_income(income_id):
     """
     - Description: Retrieves a single income based on the provided income_id.
@@ -21,7 +21,7 @@ async def get_income(income_id):
     return await get_one_income_service(income_id)
 
 
-@income_router.get("/getAll/{email}")
+@income_router.get("s/{email}")
 async def get_all_incomes(email: str):
     """
     - Description: Retrieves all incomes associated with the specified email.
@@ -33,7 +33,7 @@ async def get_all_incomes(email: str):
     return await get_all_Income_service(email)
 
 
-@income_router.post("/insert")
+@income_router.post("/")
 async def signUp(income: Income):
     """
     - Description: Inserts a new income into the database.
@@ -47,7 +47,7 @@ async def signUp(income: Income):
     return True
 
 
-@income_router.put("/put/{income_id}")
+@income_router.put("/{income_id}")
 async def update_income(income_id: int, income: Income):
     """
     - Description: Updates an existing income identified by the income_id.
@@ -62,7 +62,7 @@ async def update_income(income_id: int, income: Income):
     raise HTTPException(status_code=404, detail="oops...")
 
 
-@income_router.delete('/deleteOne/{income_id}')
+@income_router.delete('/{income_id}')
 async def delete_income(income_id: int):
     """
     - Description: Deletes a specific income by the income_id.
@@ -76,7 +76,7 @@ async def delete_income(income_id: int):
     raise HTTPException(status_code=404, detail="oops...")
 
 
-@income_router.delete('/deleteAll/{email}')
+@income_router.delete('s/{email}')
 async def delete_all_income(email: str):
     """
     - Description: Deletes all incomes associated with the provided email.

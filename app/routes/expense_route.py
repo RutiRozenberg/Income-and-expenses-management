@@ -7,7 +7,7 @@ from app.services.expense_service import get_one_expense_service, get_all_expens
 expense_router = APIRouter()
 
 
-@expense_router.get("/getOne/{expense_id}")
+@expense_router.get("/{expense_id}")
 async def get_income(expense_id):
     """
     - Description: Retrieves a single expense based on the provided expense_id.
@@ -19,7 +19,7 @@ async def get_income(expense_id):
     return await get_one_expense_service(expense_id)
 
 
-@expense_router.get("/getAll/{email}")
+@expense_router.get("s/{email}")
 async def get_all_incomes(email: str):
     """
     - Description: Retrieves all expenses associated with the specified email.
@@ -31,7 +31,7 @@ async def get_all_incomes(email: str):
     return await get_all_expense_service(email)
 
 
-@expense_router.post("/insert")
+@expense_router.post("/")
 async def signUp(expense: Expense):
     """
     - Description: Inserts a new expense into the database.
@@ -45,7 +45,7 @@ async def signUp(expense: Expense):
     return True
 
 
-@expense_router.put("/put/{expense_id}")
+@expense_router.put("/{expense_id}")
 async def update_income(expense_id: int, expense: Expense):
     """
     - Description: Updates an existing expense identified by the expense_id.
@@ -60,7 +60,7 @@ async def update_income(expense_id: int, expense: Expense):
     raise HTTPException(status_code=404, detail="oops...")
 
 
-@expense_router.delete('/deleteOne/{income_id}')
+@expense_router.delete('/{income_id}')
 async def delete_income(expense_id: int):
     """
     - Description: Deletes a specific expense by the income_id.
@@ -74,7 +74,7 @@ async def delete_income(expense_id: int):
     raise HTTPException(status_code=404, detail="oops...")
 
 
-@expense_router.delete('/deleteAll/{email}')
+@expense_router.delete('s/{email}')
 async def delete_all_income(email: str):
     """
     - Description: Deletes all expenses associated with the provided email.

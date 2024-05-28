@@ -6,7 +6,7 @@ from app.services.user_service import signIn_service, signUp_service, update_use
 user_router = APIRouter()
 
 
-@user_router.get("/signIn/{email}/{password}")
+@user_router.get("/{email}/{password}")
 async def signIn(email, password):
     """
     - Description: Validates user sign-in credentials by checking the provided email and password.
@@ -22,7 +22,7 @@ async def signIn(email, password):
     return user
 
 
-@user_router.post("/signUp")
+@user_router.post("")
 async def signUp(user: User):
     """
     - Description: Registers a new user by creating their account with the provided details.
@@ -36,7 +36,7 @@ async def signUp(user: User):
     return True
 
 
-@user_router.put("/put/{email}")
+@user_router.put("{email}")
 async def update_user(email: str, user_from_body: User):
     """- Description: Updates an existing user's information based on the provided email.
     - Parameters:
