@@ -7,11 +7,10 @@ from app.routes.income_route import income_router
 from app.routes.user_route import user_router
 
 app = FastAPI()
-app.add_middleware(CORSMiddleware,allow_origins=['*'])
+app.add_middleware(CORSMiddleware, allow_origins=['*'])
 app.include_router(user_router, prefix='/user')
 app.include_router(income_router, prefix='/income')
 app.include_router(expense_router, prefix='/expense')
-
 
 
 if __name__ == '__main__':

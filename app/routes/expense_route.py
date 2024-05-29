@@ -2,7 +2,8 @@ from fastapi import APIRouter, HTTPException
 
 from app.models.Expense import Expense
 from app.services.expense_service import get_one_expense_service, get_all_expense_service, insert_expense_service, \
-    update_expense_service, delete_one_expense_service, delete_all_expense_service
+    update_expense_service, delete_one_expense_service, delete_all_expense_service, get_expense_by_email
+from app.services.visualization_service import group_amounts_by_year
 
 expense_router = APIRouter()
 
@@ -86,3 +87,26 @@ async def delete_all_income(email: str):
     if await delete_all_expense_service(email):
         return True
     raise HTTPException(status_code=404, detail="oops...")
+
+
+@expense_router.get("{email}/{year}")
+async def show_visualization(email: str, year: int):
+    """
+       Displays a visualization for expenses grouped by year for a specific user based on the provided email and year.
+
+       Parameters:
+       - email (str): The email of the user for whom expenses will be visualized.
+       - year (int): The year for which expenses will be grouped and visualized.
+
+       Returns:
+       - bool: True if the visualization is successfully displayed.
+
+       Raises:
+       - HTTPException: If there is an error processing the request, returns status code 400 with the detail "oops...".
+       """
+    try:
+        await group_amounts_by_year(year, await get_expense_by_email(email))
+        return True
+    except:
+        raise HTTPException(status_code=400, detail="oops...")
+

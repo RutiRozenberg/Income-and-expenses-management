@@ -3,6 +3,7 @@ from fastapi import APIRouter, HTTPException
 from app.models.Income import Income
 from app.services.income_service import get_one_income_service, get_all_Income_service, insert_income_service, \
     update_income_service, delete_one_income_service, delete_all_income_service
+from app.services.visualization_service import group_amounts_by_year
 
 income_router = APIRouter()
 
@@ -88,3 +89,25 @@ async def delete_all_income(email: str):
     if await delete_all_income_service(email):
         return True
     raise HTTPException(status_code=404, detail="oops...")
+
+
+@income_router.get("/{email}/{year}")
+async def show_visualization(email: str, year: int):
+    """
+       Retrieves income data for a specific user based on the provided email and year and displays a visualization.
+
+       Parameters:
+       - email (str): The email of the user for whom income data will be visualized.
+       - year (int): The year for which income data will be grouped and visualized.
+
+       Returns:
+       - bool: True if the visualization of income data is successfully displayed.
+
+       Raises:
+       - HTTPException: If there is an error processing the request, returns status code 400 with the detail "oops...".
+       """
+    try:
+        await group_amounts_by_year(year, await get_all_Income_service(email))
+        return True
+    except:
+        raise HTTPException(status_code=400, detail="oops...")
