@@ -2,17 +2,17 @@
 
 
 ## Table of Contents
-- [Project Overview](#Project Overview)
-- [System Specification](#System Specification)
+- [Project-Overview](#Project-Overview)
+- [System-Specification](#System-Specification)
 - [Routes](#routes)
 - [Usage](#usage)
 - [Installing](#Installing)
 
 
-## Project Overview
+## Project-Overview
 The project is an income and expenses management system developed in Python using FastAPI. It helps users track their monthly budgets efficiently.
 
-## System Specification
+## System-Specification
 
 ### Database
 The data management is handled using MongoDB.
