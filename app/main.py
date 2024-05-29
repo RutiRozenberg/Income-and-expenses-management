@@ -5,7 +5,6 @@ import uvicorn
 from app.routes.expense_route import expense_router
 from app.routes.income_route import income_router
 from app.routes.user_route import user_router
-
 app = FastAPI()
 app.add_middleware(CORSMiddleware, allow_origins=['*'])
 app.include_router(user_router, prefix='/user')
