@@ -55,7 +55,7 @@ async def update_user_service(email: str, user_from_body: User):
     return True
 
 
-async def signIn_service(email: str, password: str):
+async def sign_in_service(email: str, password: str):
     """
     Validates user sign-in credentials based on the provided email and password.
     Parameters:
@@ -73,7 +73,7 @@ async def signIn_service(email: str, password: str):
     return None
 
 
-async def signUp_service(newUser: User):
+async def sign_up_service(newUser: User):
     """
     Registers a new user with the provided details.
     Parameters:
@@ -85,14 +85,14 @@ async def signUp_service(newUser: User):
     if oldUser:
         raise HTTPException(status_code=400, detail="oops... invalid email")
     try:
-        newUser.password = hashPassword(newUser.password)
+        newUser.password = hash_password(newUser.password)
         await save_user_db(newUser)
         return True
     except ValidationError:
         return False
 
 
-def hashPassword(password: str):
+def hash_password(password: str):
     """
     Hashes the provided password using bcrypt with the preset salt value.
     Parameters:

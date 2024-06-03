@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException
 
 from app.models.Income import Income
-from app.services.income_service import get_one_income_service, get_all_Income_service, insert_income_service, \
-    update_income_service, delete_one_income_service, delete_all_income_service
+from app.services.income_service import get_one_income_service, insert_income_service, \
+    update_income_service, delete_one_income_service, delete_all_income_service, get_all_income_service
 from app.services.visualization_service import group_amounts_by_year
 
 income_router = APIRouter()
@@ -31,11 +31,11 @@ async def get_all_incomes(email: str):
     - Returns:
         - List of income objects associated with the provided email.
     """
-    return await get_all_Income_service(email)
+    return await get_all_income_service(email)
 
 
-@income_router.post("/")
-async def signUp(income: Income):
+@income_router.post("")
+async def insert_income(income: Income):
     """
     - Description: Inserts a new income into the database.
     - Parameters:

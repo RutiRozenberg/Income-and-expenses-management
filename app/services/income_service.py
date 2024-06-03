@@ -3,7 +3,7 @@ from app.db_management.income_collection import get_next_id, insert_income, dele
 from app.models.Income import Income
 
 
-async def get_Income_by_email(email: str):
+async def get_income_by_email(email: str):
     """
     Retrieves a list of incomes based on the provided email.
     Parameters:
@@ -32,7 +32,7 @@ async def get_income_by_id(income_id: int):
     raise HTTPException(status_code=404, detail="oops... income didn't find")
 
 
-async def get_all_Income_service(email: str):
+async def get_all_income_service(email: str):
     """
     Retrieves all incomes associated with the specified email.
     Parameters:
@@ -40,7 +40,7 @@ async def get_all_Income_service(email: str):
     Returns:
         - List of incomes associated with the provided email if found, raises HTTPException with status_code 404 if not found.
     """
-    incomes = await get_Income_by_email(email)
+    incomes = await get_income_by_email(email)
     if incomes:
         return incomes
     raise HTTPException(status_code=404, detail="oops... incomes didn't find")

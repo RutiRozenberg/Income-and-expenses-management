@@ -32,8 +32,8 @@ async def get_all_incomes(email: str):
     return await get_all_expense_service(email)
 
 
-@expense_router.post("/")
-async def signUp(expense: Expense):
+@expense_router.post("")
+async def insert_expense(expense: Expense):
     """
     - Description: Inserts a new expense into the database.
     - Parameters:
@@ -89,7 +89,7 @@ async def delete_all_income(email: str):
     raise HTTPException(status_code=404, detail="oops...")
 
 
-@expense_router.get("{email}/{year}")
+@expense_router.get("/{email}/{year}")
 async def show_visualization(email: str, year: int):
     """
        Displays a visualization for expenses grouped by year for a specific user based on the provided email and year.
