@@ -13,4 +13,4 @@ app.include_router(expense_router, prefix='/expense')
 
 
 if __name__ == '__main__':
-    uvicorn.run(app, port=8080, host="127.0.0.1")
+    uvicorn.run(app, port=8080, host="0.0.0.0")
