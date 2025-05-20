@@ -4,7 +4,7 @@ from pydantic import ValidationError
 from app.db_management.user_collection import *
 from app.models.User import User
 
-salt = bcrypt.gensalt(rounds=20)
+salt = bcrypt.gensalt(rounds=12)
 
 
 async def get_by_email(email: str):
@@ -65,6 +65,7 @@ async def sign_in_service(email: str, password: str):
       - The user object if sign-in is successful, None if not found or password does not match.
     """
     user = await get_by_email(email)
+    print('service');
     if user:
         bytes_password = password.encode('utf-8')
         hashed_password = user.password.encode('utf-8')
